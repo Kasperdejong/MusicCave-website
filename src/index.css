@@ -1,0 +1,849 @@
+/* Custom CSS Variables */
+:root {
+  --bg-primary: #222;
+  --bg-secondary: #1a1a1a;
+  --bg-card: #333;
+  --purple: #6a0dad;
+  --purple-glow: rgba(106, 13, 173, 0.25);
+
+  --spotify: #1db954;
+  --spotify-bg: rgba(29, 185, 84, 0.15);
+  --apple: #fa243c;
+  --apple-bg: rgba(250, 36, 60, 0.15);
+
+  --border: #444;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-light: #ffffff;
+}
+
+/* Base Resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  /* Avoids unwanted horizontal scroll issues */
+}
+
+/* Container spans full-width so header/footer can stretch edge-to-edge */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Header Container - Now spans 100% viewport width */
+.header {
+  position: relative;
+  background-color: var(--bg-secondary);
+  padding: 6rem 1.5rem 7.5rem 1.5rem;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* KEYFRAMES FOR THE ENERGY STREAM EFFECTS */
+@keyframes power-flow-horizontal {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes power-flow-vertical {
+  0% {
+    background-position: 0 200%;
+  }
+
+  100% {
+    background-position: 0 -200%;
+  }
+}
+
+/* Header Glowing Bottom Border (Horizontal Power Stream) */
+.header::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+      rgba(29, 185, 84, 0) 0%,
+      rgba(29, 185, 84, 0.3) 20%,
+      var(--spotify) 40%,
+      #ffffff 50%,
+      var(--spotify) 60%,
+      rgba(29, 185, 84, 0.3) 80%,
+      rgba(29, 185, 84, 0) 100%);
+  background-size: 200% 100%;
+  animation: power-flow-horizontal 3.5s linear infinite;
+  box-shadow: 0 0 10px rgba(29, 185, 84, 0.7);
+  z-index: 10;
+}
+
+/* Video positioned as background behind content */
+.header-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Overlay gradient to style the video background and make overlay text readable */
+.header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(106, 13, 173, 0.4), rgba(0, 0, 0, 0.75));
+  z-index: 2;
+}
+
+/* Text elements layered on top of the video and overlay */
+.header-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.header-title {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .header-title {
+    font-size: 4rem;
+  }
+}
+
+.header-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .header-description {
+    font-size: 1.15rem;
+  }
+}
+
+/* Brand Tags Styles */
+.platform-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .platform-tags {
+    font-size: 0.95rem;
+  }
+}
+
+.tag-spotify {
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  background-color: var(--spotify-bg);
+  color: var(--spotify);
+  border: 1px solid rgba(29, 185, 84, 0.3);
+}
+
+.tag-apple {
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  background-color: var(--apple-bg);
+  color: var(--apple);
+  border: 1px solid rgba(250, 36, 60, 0.3);
+}
+
+.tag-separator {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+/* Main Content Area - Boxed at 1200px to display body wallpaper on side margins */
+.main-content {
+  position: relative;
+  /* Anchors both vertical stream lines and the absolute banners */
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  background-color: #1a1a1a;
+  /* Solid base background to preserve text contrast over body wallpaper */
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.9);
+}
+
+/* Left Glowing Side Line (Vertical Power Stream flowing downwards) */
+.main-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg,
+      rgba(29, 185, 84, 0) 0%,
+      rgba(29, 185, 84, 0.3) 20%,
+      var(--spotify) 40%,
+      #ffffff 50%,
+      var(--spotify) 60%,
+      rgba(29, 185, 84, 0.3) 80%,
+      rgba(29, 185, 84, 0) 100%);
+  background-size: 100% 200%;
+  animation: power-flow-vertical 4.5s linear infinite;
+  box-shadow: -3px 0 10px rgba(29, 185, 84, 0.5);
+  z-index: 5;
+}
+
+/* Right Glowing Side Line (Vertical Power Stream flowing upwards) */
+.main-content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg,
+      rgba(29, 185, 84, 0) 0%,
+      rgba(29, 185, 84, 0.3) 20%,
+      var(--spotify) 40%,
+      #ffffff 50%,
+      var(--spotify) 60%,
+      rgba(29, 185, 84, 0.3) 80%,
+      rgba(29, 185, 84, 0) 100%);
+  background-size: 100% 200%;
+  animation: power-flow-vertical 4.5s linear infinite reverse;
+  box-shadow: 3px 0 10px rgba(29, 185, 84, 0.5);
+  z-index: 5;
+}
+
+/* DECORATIVE SIDE BANNERS (ENCAPSULATING THE ENTIRE VIEWPORT SIDE AREA) */
+.side-banner {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-image: url('sideimage.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 0;
+  /* Square edges to cleanly encapsulate the viewport bounds */
+  overflow: hidden;
+  z-index: 3;
+}
+
+/* Translucent dark overlay over the side panels (clear 20% opacity, no blur) */
+.side-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 26, 0.2);
+  z-index: 1;
+}
+
+/* Left banner: stretches precisely from left screen edge to the left side of main content column */
+.left-banner {
+  right: 100%;
+  left: calc(-50vw + 600px);
+  border-right: 1px solid var(--border);
+}
+
+/* Right banner: stretches precisely from the right side of main content column to right screen edge */
+.right-banner {
+  left: 100%;
+  right: calc(-50vw + 600px);
+  border-left: 1px solid var(--border);
+}
+
+/* Hides side panels on screen widths under 1400px to prevent narrow sliver clipping */
+@media (max-width: 1400px) {
+  .side-banner {
+    display: none;
+  }
+}
+
+/* Centered Dashboard Container */
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto 5rem auto;
+  gap: 1rem;
+}
+
+.dashboard-info {
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Locked strictly to 1rem on all screen sizes to keep it subtle */
+.dashboard-text {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Slow, subtle floating animation for the downward arrow */
+@keyframes arrow-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.dashboard-arrow {
+  color: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  animation: arrow-float 3s infinite ease-in-out;
+}
+
+/* Centered, moderately scaled image container */
+.dashboard-preview {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.dashboard-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 45px var(--purple-glow);
+  display: block;
+}
+
+/* CAROUSEL INTRO DESCRIPTION WITH INTEGRATED SIDE LOGOS */
+.carousel-intro {
+  width: 100%;
+  max-width: 880px;
+  /* Expanded slightly to give larger logos breathing room */
+  margin: 0 auto 2.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  /* Spacing gap to offset logo scale */
+  text-align: center;
+}
+
+.carousel-intro-text {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+/* Decorative flank intro logos (Enlarged as requested) */
+.intro-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.left-logo {
+  transform: rotate(-10deg);
+  /* Left logo tilted outward */
+}
+
+.right-logo {
+  transform: rotate(10deg);
+  /* Right logo tilted outward */
+}
+
+/* CAROUSEL CONTAINERS */
+.carousel-container {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-slide {
+  flex-shrink: 0;
+  padding: 0 70px;
+  box-sizing: border-box;
+}
+
+/* Card components */
+.card {
+  width: 100%;
+  height: 520px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.card::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 2.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 2.75rem;
+  }
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--purple);
+  box-shadow: 0 0 40px var(--purple-glow);
+}
+
+.card-header {
+  word-break: break-word;
+}
+
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .card-title {
+    font-size: 2rem;
+  }
+}
+
+.card:hover .card-title {
+  color: #d9b3ff;
+}
+
+.card-description {
+  color: #ffffff;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .card-description {
+    font-size: 1.05rem;
+  }
+}
+
+/* CAROUSEL NAVIGATION ARROWS */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateY(-20px);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: filter 0.3s ease, transform 0.3s ease;
+  padding: 0;
+  border: none;
+}
+
+.carousel-arrow:hover {
+  filter: brightness(1.2);
+  transform: translateY(-50%) translateY(-20px) scale(1.05);
+}
+
+/* Left Arrow - MusicCave Purple */
+.carousel-arrow.prev {
+  left: 12px;
+  background-color: var(--purple);
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--purple-glow);
+}
+
+/* Right Arrow - MusicCave Green */
+.carousel-arrow.next {
+  right: 12px;
+  background-color: var(--spotify);
+  color: #121212;
+  box-shadow: 0 4px 14px rgba(29, 185, 84, 0.25);
+}
+
+/* CAROUSEL BUTTON DOTS */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--border);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background-color: var(--purple);
+  transform: scale(1.25);
+  box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
+}
+
+/* List Formatting */
+.bullet-list {
+  list-style: none;
+  border-top: 1px solid var(--border);
+  padding-top: 1.75rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.bullet-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.875rem;
+  align-items: start;
+}
+
+.bullet-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--purple);
+  margin-top: 0.55rem;
+}
+
+.bullet-text {
+  color: #ffffff;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+@media (min-width: 768px) {
+  .bullet-text {
+    font-size: 1rem;
+  }
+}
+
+/* Footer Styles */
+.footer {
+  position: relative;
+  /* Anchors the top horizontal stream border absolutely */
+  width: 100%;
+  background-color: #1a1a1a;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+/* Footer Glowing Top Border (Horizontal Power Stream) */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+      rgba(29, 185, 84, 0) 0%,
+      rgba(29, 185, 84, 0.3) 20%,
+      var(--spotify) 40%,
+      #ffffff 50%,
+      var(--spotify) 60%,
+      rgba(29, 185, 84, 0.3) 80%,
+      rgba(29, 185, 84, 0) 100%);
+  background-size: 200% 100%;
+  animation: power-flow-horizontal 3.5s linear infinite;
+  /* Reuses header's animation keyframes */
+  box-shadow: 0 0 10px rgba(29, 185, 84, 0.7);
+  z-index: 10;
+}
+
+.footer-text {
+  font-size: 0.875rem;
+  color: #ffffff;
+}
+
+/* Custom Webkit Scrollbars for the main window */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+/* MOBILE ADAPTATION FOR INNER CARD SPACE */
+@media (max-width: 500px) {
+  .carousel-slide {
+    padding: 0 55px;
+  }
+
+  .carousel-arrow.prev {
+    left: 6px;
+  }
+
+  .carousel-arrow.next {
+    right: 6px;
+  }
+
+  .card {
+    height: 540px;
+  }
+}
+
+/* MOBILE ADAPTATION FOR INNER COPY/INTRO SPACE */
+@media (max-width: 600px) {
+  .intro-logo {
+    width: 50px;
+    /* Sized to 50px on mobile */
+    height: 50px;
+  }
+
+  .carousel-intro {
+    gap: 0.75rem;
+  }
+
+  .carousel-intro-text {
+    font-size: 1.1rem;
+    /* Soft scale-down on tiny viewports so elements fit beautifully beside flanking logos */
+  }
+}
+
+.how-it-works-section {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto 5rem auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.how-it-works-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .how-it-works-title {
+    font-size: 2.75rem;
+  }
+}
+
+/* HOW IT WORKS VIDEO & HOVER EFFECTS */
+.how-it-works-video-wrapper {
+  position: relative;
+  /* Essential for aligning the hover text bubble */
+  width: 100%;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+.video-link {
+  display: block;
+  cursor: pointer;
+}
+
+.how-it-works-video {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px var(--purple-glow);
+  display: block;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  background-color: var(--bg-secondary);
+}
+
+.how-it-works-video-wrapper:hover .how-it-works-video {
+  transform: translateY(-4px);
+  border-color: var(--purple);
+}
+
+/* HOVER TEXT BUBBLE (FIXED AT NATIVE RESOLUTION TO KEEP IT CRISP) */
+.video-hover-bubble {
+  position: absolute;
+  left: 1rem;
+  /* Lock it exactly to the image's native resolution so it won't ever look blurry */
+  object-fit: contain;
+  /* Keeps aspect ratio clean if it scales */
+  /* Shifts left by 100% of its own width + 15px padding to enforce exactly a 15px gap */
+  transform: translate(calc(-100% - 15px), -60px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  /* Prevents it from interfering with the hover zone */
+  z-index: 20;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+}
+
+.how-it-works-video-wrapper:hover .video-hover-bubble {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Pull the bubble inside on smaller screens to prevent page stretching */
+@media (max-width: 1200px) {
+  .video-hover-bubble {
+    left: 2rem;
+    transform: translateY(-20px);
+    /* Scale it down slightly on smaller screens so it doesn't clip */
+    width: 200px;
+    height: 200px;
+    top: 10%;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-hover-bubble {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.how-it-works-explanation {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #ffffff;
+  max-width: 720px;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .how-it-works-explanation {
+    font-size: 1.2rem;
+  }
+}
+
+.how-it-works-screenshots {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .how-it-works-screenshots {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.screenshot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.screenshot-caption {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+
+.how-it-works-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px var(--purple-glow);
+  display: block;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.how-it-works-image:hover {
+  transform: translateY(-4px);
+  border-color: var(--purple);
+}
